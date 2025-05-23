@@ -1,7 +1,7 @@
-import '@css/components/task-list.css'
+import '@css/components/taskList.css'
 
 export function createTaskList() {
     const taskList = document.createElement('div');
-    taskList.id = 'task-list';
+    taskList.id = 'taskList';
     return taskList;
 }
