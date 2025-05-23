@@ -1,10 +1,9 @@
 import '@css/pages/home.css'
+import { createHeader } from '../components/header';
+import { createNav } from '../components/nav';
+
 export function renderHome() {
     const app = document.getElementById('app');
-    //create sidebar and main section
-    const sidebar = document.createElement('div');
-    sidebar.id = 'sidebar';
-    const todoList = document.createElement('div');
-    todoList.id = 'todo-list';
-    app.append(sidebar, todoList);
+    app.innerHTML = '';
+    app.append(createHeader(), createNav());
 }

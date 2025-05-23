@@ -9,5 +9,10 @@ export default defineConfig({
       // @js  → /src/js
       '@js':  path.resolve(__dirname, 'src/js'),
     }
+  },
+  // when deployed to https://<user>.github.io/Restaurant-Page/
+  base: './',
+  build: {
+    assetsDir: 'assets',
   }
 });
