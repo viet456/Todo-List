@@ -8,4 +8,4 @@ export function main() {
     app.append(createSidebar(), createTaskList());
 }
 main();
-console.log(`we're live`);
+console.log(`we're live`);  
