@@ -1,11 +1,11 @@
 import '@css/base.css'
-import { createHeader } from '@js/components/header';
-import { createNav } from '@js/components/nav';
+import { createTaskList } from './js/components/taskList';
+import { createSidebar } from './js/components/sidebar';
 
 export function main() {
     const app = document.getElementById('app');
     app.innerHTML = '';
-    app.append(createHeader(), createNav());
+    app.append(createSidebar(), createTaskList());
 }
 main();
 console.log(`we're live`);
