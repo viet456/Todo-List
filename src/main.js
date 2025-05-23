@@ -1,13 +1,17 @@
 import '@css/base.css'
 import { createTaskList } from '@js/components/taskList';
 import { createSidebar } from '@js/components/sidebar';
-import { renderTask } from '@js/utilities/renderTask'
+import { Project } from '@js/utilities/project';
+
+console.log(`we're live`);  
 
 export function main() {
     const app = document.getElementById('app');
     app.innerHTML = '';
     app.append(createSidebar(), createTaskList());
-    renderTask();
+    const today = new Project("Today", [{"check this", 
+      "example task", "soon", "high"
+    }]);
+    today.showProjectTasks();
 }
 main();
-console.log(`we're live`);  
