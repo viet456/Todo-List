@@ -1,4 +1,4 @@
-import '../../css/pages/home.css'
+import '@css/pages/home.css'
 export function renderHome() {
     const app = document.getElementById('app');
     //create sidebar and main section
