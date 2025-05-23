@@ -9,9 +9,8 @@ export function main() {
     const app = document.getElementById('app');
     app.innerHTML = '';
     app.append(createSidebar(), createTaskList());
-    const today = new Project("Today", [{"check this", 
-      "example task", "soon", "high"
-    }]);
+    const today = new Project('Today');
+    today.addTask("test task", "for development", "today", "high");
     today.showProjectTasks();
 }
 main();

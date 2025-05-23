@@ -7,5 +7,6 @@ export function renderTask(task) {
         <p>${task.description}</p><br>
         <small>Due: ${task.dueDate} — Priority: ${task.priority}</small>
     `;
+    console.log(wrapper);
     return wrapper;
 }

@@ -1,3 +1,4 @@
+import { Task } from "@js/utilities/task";
 import { renderTask } from "@js/utilities/renderTask";
 
 export class Project {
@@ -11,7 +12,7 @@ export class Project {
     }
 
     showProjectTasks() {
-        tasks.array.forEach((task) => {
+        this.tasks.forEach((task) => {
             renderTask(task);
         });
     }
