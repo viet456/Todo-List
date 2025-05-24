@@ -14,7 +14,7 @@ export class Project {
     showProjectTasks() {
         const taskList = document.createElement('div');
         let taskEl = document.createElement('div');
-        taskEl.className = 'task';
+        taskEl.className = 'task'
         this.tasks.forEach((task) => {
             taskEl = renderTask(task);
             taskList.append(taskEl);

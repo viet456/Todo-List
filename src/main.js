@@ -11,12 +11,15 @@ export function main() {
     app.innerHTML = '';
     app.append(createSidebar(), createTaskList());
     const taskList = document.getElementById('taskList');
+    
     //default project is for today
     const today = new Project('Today');
     //test task
     const todaysTask = new Task('test task', 'for development', 'today', 'high');
     today.addTask(todaysTask);
+    today.addTask(todaysTask);
     console.log(today.tasks);
     taskList.append(today.showProjectTasks());
+    taskList.prepend(today.name);
 }
 main();
