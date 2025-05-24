@@ -1,7 +1,7 @@
 import { Task } from '@js/utilities/task.js'
 import '@css/utilities/tasks.css'
 
-export function renderTask(task) {
+export function printTask(task) {
     const wrapper = document.createElement('div');
     wrapper.className = 'task'
     wrapper.innerHTML = `
