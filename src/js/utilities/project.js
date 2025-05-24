@@ -1,5 +1,5 @@
 import { Task } from "@js/utilities/task";
-import { printTask } from "@js/utilities/printTask";
+import { renderTask } from "./renderTask";
 
 export class Project {
     constructor(name) {
@@ -17,7 +17,7 @@ export class Project {
         let taskEl = document.createElement('div');
         taskEl.className = 'task'
         this.tasks.forEach((task) => {
-            taskEl = printTask(task);
+            taskEl = renderTask(task);
             taskList.append(taskEl);
         });
         return taskList;
