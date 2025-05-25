@@ -1,3 +1,5 @@
+import { Project } from "@js/utilities/project";
+
 export function saveField(fieldEl, task) {
     let prop = fieldEl.dataset.field;
     //if not a task property then ignore
