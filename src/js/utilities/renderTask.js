@@ -1,6 +1,6 @@
 import { Task } from '@js/utilities/task.js'
 import { enterField } from '@js/utilities/enterField';
-import { saveField } from '@js/utilities/saveField';
+import { saveTask } from '@js/utilities/saveTask';
 import '@css/utilities/tasks.css'
 
 export function renderTask(task) {
@@ -55,7 +55,7 @@ export function renderTask(task) {
     //save when input field exited
     wrapper.addEventListener('focusout', e => {
         let fieldEl = e.target;
-        saveField(fieldEl, task);
+        saveTask(fieldEl, task);
     });
     return wrapper;
 }

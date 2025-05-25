@@ -1,7 +1,7 @@
 import { Task } from '@js/utilities/task.js'
 import { Project } from "@js/utilities/project";
 
-export function saveField(fieldEl, task) {
+export function saveTask(fieldEl, task) {
     let prop = fieldEl.dataset.field;
     //if not a task property then ignore
     if (!prop) return;
