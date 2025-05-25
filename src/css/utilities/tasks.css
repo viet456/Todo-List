@@ -3,7 +3,21 @@
     padding: 0;
     box-sizing: border-box;
 }
+#taskList {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
 .task {
-    border: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+}
+.task-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 0 0.5rem;
 }
  

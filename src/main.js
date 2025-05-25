@@ -3,6 +3,7 @@ import { createTaskSection } from '@js/components/taskSection';
 import { createSidebar } from '@js/components/sidebar';
 import { Project } from '@js/utilities/project';
 import { Task } from '@js/utilities/task';
+
 console.log(`we're live`);  
 
 export function main() {

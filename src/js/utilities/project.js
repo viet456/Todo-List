@@ -1,3 +1,4 @@
+import '@css/utilities/tasks.css'
 import { Task } from "@js/utilities/task";
 import { renderTask } from "./renderTask";
 

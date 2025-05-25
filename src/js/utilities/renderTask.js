@@ -5,27 +5,33 @@ export function renderTask(task) {
     const wrapper = document.createElement('div');
     wrapper.className = 'task'
 
-    const titleEl = document.createElement('h4');
-    const descEl = document.createElement('p');
-    const dateEl = document.createElement('small');
-    const priorityEl = document.createElement('small');    
+    // Title: single-line input
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.value = task.title; 
+    titleInput.dataset.field = 'title';   
 
-    titleEl.textContent = task.title;
-    descEl.textContent = task.description;
-    dateEl.textContent = task.dueDate;
-    priorityEl.textContent = task.priority;
+    // Due date: date picker
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    dateInput.value = task.dueDate;
+    dateInput.dataset.field = 'dueDate';
 
-    //on-click target parameters
-    titleEl.dataset.field = 'title';
-    descEl.dataset.field = 'description';
-    dateEl.dataset.field = 'dueDate';
-    priorityEl.dataset.field = 'priority';
-    [titleEl, descEl, dateEl, priorityEl].forEach(el => {
-        el.classList.add('task-field');
-    });
+    // Priority: toggle yes/no
+    const prioInput = document.createElement('input');
+    prioInput.type = 'checkbox';
+    prioInput.value = task.priority;
+    prioInput.dataset.field = 'priority';
 
-    wrapper.append(titleEl, descEl, dateEl, priorityEl)
-    console.log(wrapper);
+    // Description: multi-line textarea
+    const descArea = document.createElement('textarea');
+    descArea.value = task.description;
+    descArea.dataset.field = 'description';
+
+    const taskFooter = document.createElement('div');
+    taskFooter.classList.add('task-footer');
+    taskFooter.append(dateInput, prioInput, descArea);
+    wrapper.append(titleInput, taskFooter);
 
     //find element clicked on and return its data field type
     wrapper.addEventListener('click', e => {
