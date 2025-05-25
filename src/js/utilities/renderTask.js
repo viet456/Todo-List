@@ -10,7 +10,7 @@ export function renderTask(task) {
     // Done: toggle yes/no
     const doneInput = document.createElement('input');
     doneInput.type = 'checkbox';
-    doneInput.value = task.done;
+    doneInput.checked = task.done;
     doneInput.dataset.field = 'done';
 
     // Title: single-line input
@@ -28,7 +28,7 @@ export function renderTask(task) {
     // Priority: toggle yes/no
     const prioInput = document.createElement('input');
     prioInput.type = 'checkbox';
-    prioInput.value = task.priority;
+    prioInput.checked = task.priority;
     prioInput.dataset.field = 'priority';
 
     // Description: multi-line textarea
@@ -42,22 +42,20 @@ export function renderTask(task) {
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task__info');
     taskHeader.append(doneInput, titleInput);
-    taskInfo.append(dateInput, prioInput, descArea);
+    taskInfo.append(descArea, dateInput, prioInput);
     wrapper.append(taskHeader, taskInfo);
 
     //input field focused on
     wrapper.addEventListener('focusin', e => {
         let field = e.target.dataset.field;
         if (!field) return;
-        console.log(field);
         enterField(field);
     });
 
     //save when input field exited
-    wrapper.addEventListener('blur', e => {
-        let field = e.target.dataset.field;
-        if (!field) return;
-        exitField(field);
+    wrapper.addEventListener('focusout', e => {
+        let fieldEl = e.target;
+        saveField(fieldEl, task);
     });
     return wrapper;
 }
