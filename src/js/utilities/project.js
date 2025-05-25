@@ -6,7 +6,7 @@ export class Project {
     constructor(name) {
         this.name = name;
         this.tasks = [];
-        this.ensureBlankTask();
+        this.addTask(new Task('', '', '', false, false));
     }
 
     //one empty task at the end - empty if no title
@@ -14,12 +14,16 @@ export class Project {
         let last = this.tasks[this.tasks.length - 1];
         //if no tasks in project or if last task is titled 
         if (!last || last.title.trim() !== '') {
-            this.tasks.push(new Task('', '', '', false, false));
+            const blank = new Task('', '', '', false, false);
+            blank.project = this;
+            this.tasks.push(blank);
         }
     }
 
     //add a task at the end of the task list
     addTask(task) {
+        //task is linked to its project
+        this.task = this;
         //ensures a blank task to insert before
         this.ensureBlankTask();
         const lastIdx = this.tasks.length - 1;

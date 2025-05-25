@@ -19,4 +19,5 @@ export function saveField(fieldEl, task) {
     }
     console.log('saved', value, 'to', fieldEl.dataset.field)
     task[prop] = value;
+    
 }
