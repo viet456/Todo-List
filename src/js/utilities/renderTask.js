@@ -1,4 +1,6 @@
 import { Task } from '@js/utilities/task.js'
+import { enterField } from '@js/utilities/enterField';
+import { saveField } from '@js/utilities/saveField';
 import '@css/utilities/tasks.css'
 
 export function renderTask(task) {
@@ -33,11 +35,19 @@ export function renderTask(task) {
     taskFooter.append(dateInput, prioInput, descArea);
     wrapper.append(titleInput, taskFooter);
 
-    //find element clicked on and return its data field type
-    wrapper.addEventListener('click', e => {
-        const field = e.target.dataset.field;
+    //input field focused on
+    wrapper.addEventListener('focusin', e => {
+        let field = e.target.dataset.field;
         if (!field) return;
         console.log(field);
+        enterField(field);
+    });
+
+    //save when input field exited
+    wrapper.addEventListener('blur', e => {
+        let field = e.target.dataset.field;
+        if (!field) return;
+        exitField(field);
     });
     return wrapper;
 }
