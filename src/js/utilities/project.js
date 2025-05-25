@@ -9,11 +9,11 @@ export class Project {
         this.ensureBlankTask();
     }
 
-    //one empty task at the end - empty if no title
+    //one empty task at the end; empty if no title
     ensureBlankTask() {
-        let last = this.tasks[this.tasks.length - 1];
-        //if no tasks in project or if last task is titled 
-        if (!last || last.title.trim() !== '') {
+        // only add a blank if there is no blank anywhere
+        const hasBlank = this.tasks.some(t => t.title.trim() === '');
+        if (!hasBlank) {
             const blank = new Task('', '', '', false, false);
             blank.project = this;
             this.tasks.push(blank);
@@ -33,7 +33,13 @@ export class Project {
         this.tasks.splice(lastIdx, 0, task);
     }
 
-    //render project tasks
+    deleteTask(taskToRemove) {
+        //new tasks array without task to remove
+        this.tasks = this.tasks.filter(t => t.id !== taskToRemove.id);
+        this.ensureBlankTask();
+    }
+
+    //create project tasks elements
     showProjectTasks() {
         const taskList = document.createElement('div');
         taskList.id = 'taskList';
@@ -42,6 +48,13 @@ export class Project {
             taskList.append(taskEl);
         });
         return taskList;
+    }
+
+    //render task list
+    render() {
+        const oldList = document.getElementById('taskList');
+        const newList = this.showProjectTasks();
+        oldList.parentNode.replaceChild(newList, oldList);
     }
 }
 

@@ -1,6 +1,7 @@
 import { Task } from '@js/utilities/task.js'
 import { enterField } from '@js/utilities/enterField';
 import { saveTask } from '@js/utilities/saveTask';
+import { showTaskMenu } from '@js/components/taskMenu.js'
 import '@css/utilities/tasks.css'
 
 export function renderTask(task) {
@@ -56,6 +57,14 @@ export function renderTask(task) {
     wrapper.addEventListener('focusout', e => {
         let fieldEl = e.target;
         saveTask(fieldEl, task);
+    });
+    
+    //delete task on rightclick
+    wrapper.addEventListener('contextmenu', e => {
+        //prevent regular rightclick menu
+        e.preventDefault();
+        //show new menu at mouse position
+        showTaskMenu(e.pageX, e.pageY, task);
     });
     return wrapper;
 }

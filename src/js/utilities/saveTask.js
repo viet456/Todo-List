@@ -26,10 +26,7 @@ export function saveTask(fieldEl, task) {
     const lastTask = tasks[tasks.length - 1];
     if (prop === 'title' && lastTask.title !=='') {
         //rerender task list
-        task.project.ensureBlankTask();
-        const oldList = document.getElementById('taskList');
-        oldList.innerHTML = '';
-        const newList = task.project.showProjectTasks();
-        oldList.parentNode.replaceChild(newList, oldList);    
+        task.project.addTask(new Task('', '', '', false, false));
+        task.project.render();    
     }
 }

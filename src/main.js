@@ -17,8 +17,9 @@ export function main() {
     
     //test task
     const todaysTask = new Task('test task', 'for development', 'today', false, false);
+    const todaysTask2 = new Task('test task', 'for development', 'today', false, false);
     today.addTask(todaysTask);
-    today.addTask(todaysTask);
+    today.addTask(todaysTask2);
     taskSection.append(today.showProjectTasks());
 }
 main();
