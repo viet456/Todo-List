@@ -7,6 +7,12 @@ export function renderTask(task) {
     const wrapper = document.createElement('div');
     wrapper.className = 'task'
 
+    // Done: toggle yes/no
+    const doneInput = document.createElement('input');
+    doneInput.type = 'checkbox';
+    doneInput.value = task.done;
+    doneInput.dataset.field = 'done';
+
     // Title: single-line input
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
@@ -30,10 +36,14 @@ export function renderTask(task) {
     descArea.value = task.description;
     descArea.dataset.field = 'description';
 
-    const taskFooter = document.createElement('div');
-    taskFooter.classList.add('task-footer');
-    taskFooter.append(dateInput, prioInput, descArea);
-    wrapper.append(titleInput, taskFooter);
+    //task element sections
+    const taskHeader = document.createElement('header');
+    taskHeader.classList.add('task__header');
+    const taskInfo = document.createElement('div');
+    taskInfo.classList.add('task__info');
+    taskHeader.append(doneInput, titleInput);
+    taskInfo.append(dateInput, prioInput, descArea);
+    wrapper.append(taskHeader, taskInfo);
 
     //input field focused on
     wrapper.addEventListener('focusin', e => {

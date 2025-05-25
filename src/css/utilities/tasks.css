@@ -15,7 +15,13 @@
     padding: 0.5rem 0;
     gap: 0.5rem;
 }
-.task-footer {
+.task__header {
+    display: flex;
+    flex-direction: row;
+    gap: 0 0.5rem;
+
+}
+.task__info {
     display: flex;
     flex-direction: row;
     gap: 0 0.5rem;
