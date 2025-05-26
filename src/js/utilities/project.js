@@ -6,6 +6,8 @@ export class Project {
     constructor(name) {
         this.name = name;
         this.tasks = [];
+        this.color = null;
+        this.archived = false;
         this.ensureBlankTask();
     }
 

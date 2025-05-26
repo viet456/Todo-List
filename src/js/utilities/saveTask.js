@@ -26,7 +26,7 @@ export function saveTask(fieldEl, task) {
     const lastTask = tasks[tasks.length - 1];
     if (prop === 'title' && lastTask.title !=='') {
         //rerender task list
-        task.project.addTask(new Task('', '', '', false, false));
+        task.project.ensureBlankTask();
         task.project.render();    
     }
 }
