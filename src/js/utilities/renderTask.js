@@ -6,6 +6,7 @@ import '@css/utilities/tasks.css'
 export function renderTask(task) {
     const wrapper = document.createElement('div');
     wrapper.className = 'task'
+    wrapper.dataset.taskId = task.id;
 
     // Done: toggle yes/no
     const doneInput = document.createElement('input');
@@ -68,7 +69,7 @@ export function renderTask(task) {
 
     // save input field on enter key
     wrapper.addEventListener('keydown', e => {
-        if (e.key !== 'Enter') return;
+        if (e.key !== 'Enter' || e.key!== 'Esc') return;
         const fieldEl = e.target;
         // ignore 'Enter' in textareas to allow for new lines
         if (fieldEl.dataset.field === 'description') {

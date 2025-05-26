@@ -1,5 +1,6 @@
 import { Task } from '@js/utilities/task.js'
 import { Project } from "@js/utilities/project";
+import { renderTask } from '@js/utilities/renderTask';
 
 export function saveTask(fieldEl, task) {
     let prop = fieldEl.dataset.field;
@@ -21,12 +22,30 @@ export function saveTask(fieldEl, task) {
     console.log('saved', value, 'to', fieldEl.dataset.field)
     task[prop] = value;
 
+    // delete task only if empty title and contents
+    if (prop === 'title' && value === '') {
+        const isTrulyEmpty = !task.description && !task.dueDate;
+        if (isTrulyEmpty) {
+            const tasks = task.project.tasks;
+            const lastTask = tasks[tasks.length - 1];
+            if (task !== lastTask) {
+                const id = task.id;
+                task.project.deleteTask(task);
+                //remove task by id
+                document.querySelector(`[data-task-id="${id}"]`).remove();
+            }
+        }
+        return;
+    }
+
     // add new blank task if current blank task is titled and added
     const tasks = task.project.tasks;
     const lastTask = tasks[tasks.length - 1];
-    if (prop === 'title' && lastTask.title !=='') {
-        //rerender task list
-        task.project.ensureBlankTask();
-        task.project.render();    
+    if (prop === 'title' && lastTask.title !=='' && task === lastTask) {
+        const newBlankTask = task.project.addBlankTask();
+        if (newBlankTask) {
+            const newEl = renderTask(newBlankTask);
+            document.getElementById('taskList').append(newEl);
+        }
     }
 }

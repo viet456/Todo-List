@@ -14,16 +14,24 @@ export function showTaskMenu(x, y, task) {
     menu.style.left = x + 'px';
     menu.classList.add('context-menu');
 
-    // menu option delete
-    const deleteOption = document.createElement('div');
+    const tasks = task.project.tasks;
+    const lastTask = tasks[tasks.length - 1];
+
+    // menu option delete 
+    if (task !== lastTask) {
+        const deleteOption = document.createElement('div');
         deleteOption.textContent = 'Delete Task';
         deleteOption.addEventListener('click', () => {
-        task.project.deleteTask(task);
-        task.project.render();
-        menu.remove();
-    });
-
-    menu.append(deleteOption);
+            const id = task.id;
+            task.project.deleteTask(task);
+            //remove task by its id
+            document.querySelector(`[data-task-id="${id}"]`).remove();
+            menu.remove();
+        });
+        menu.append(deleteOption);
+    }
+    //don't show menu if no options
+    if (!menu.hasChildNodes()) return;
     //for positioning
     document.body.append(menu);
 

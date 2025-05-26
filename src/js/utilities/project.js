@@ -8,37 +8,41 @@ export class Project {
         this.tasks = [];
         this.color = 'black';
         this.archived = false;
-        this.ensureBlankTask();
+        this.addBlankTask();
     }
 
-    //one empty task at the end; empty if no title
-    ensureBlankTask() {
-        // only add a blank if there is no blank anywhere
-        const hasBlank = this.tasks.some(t => t.title.trim() === '');
-        if (!hasBlank) {
-            const blank = new Task('', '', '', false, false);
-            blank.project = this;
-            this.tasks.push(blank);
-        }
+    // one empty task at the end
+    addBlankTask() {
+        const blank = new Task('', '', '', false, false);
+        blank.project = this;
+        this.tasks.push(blank);
+        return blank;
     }
 
     //add a task at the end of the task list
     addTask(task) {
         //task is linked to its project
         task.project = this;
-
-        //ensures a blank task to insert before
-        this.ensureBlankTask();
-        const lastIdx = this.tasks.length - 1;
-
-        //add task after last titled task
-        this.tasks.splice(lastIdx, 0, task);
+        //adds a blank task to insert before
+        const insertIndex = this.tasks.findIndex(t => t.title.trim() === '');
+        if (insertIndex !== -1) {
+            // insert the new task just before the blank
+            this.tasks.splice(insertIndex, 0, task);
+        } else {
+            // create blank after if not existing
+            this.tasks.push(task);
+            this.addBlankTask();
+        }
     }
 
     deleteTask(taskToRemove) {
-        //new tasks array without task to remove
+        // new tasks array without task to remove
         this.tasks = this.tasks.filter(t => t.id !== taskToRemove.id);
-        this.ensureBlankTask();
+        // ensure blank after task deletion
+        const hasBlank = this.tasks.some(t => t.title.trim() === '');
+        if (!hasBlank) {
+            this.addBlankTask();
+        }
     }
 
     //create project tasks elements
