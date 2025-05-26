@@ -1,0 +1,16 @@
+#projects-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+.project-tile {
+aspect-ratio: 1 / 0.5;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
