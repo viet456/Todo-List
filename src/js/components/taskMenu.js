@@ -1,4 +1,5 @@
 import { Project } from "@js/utilities/project";
+import '@css/components/taskMenu.css'
 
 export function showTaskMenu(x, y, task) {
     // remove any existing menu
