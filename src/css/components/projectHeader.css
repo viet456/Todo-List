@@ -1,0 +1,13 @@
+#projectHeader {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem; 
+    font-weight: bold;
+    padding: 1.5rem 2rem; 
+    border-bottom: 1px solid #ccc; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start; 
+}

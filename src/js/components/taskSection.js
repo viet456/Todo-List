@@ -1,5 +1,5 @@
 import '@css/components/taskSection.css'
-import { taskHeader } from '@js/components/taskHeader';
+import { projectHeader } from '@js/components/projectHeader';
 import { getActiveProject } from '@js/utilities/projectService';
 
 export function createTaskSection() {
@@ -9,7 +9,7 @@ export function createTaskSection() {
     function render() {
         const project = getActiveProject();
         taskSection.innerHTML = '';
-        taskSection.append(taskHeader(project));
+        taskSection.append(projectHeader(project));
         const tasksList = project.showProjectTasks();
         taskSection.append(tasksList);
     }
