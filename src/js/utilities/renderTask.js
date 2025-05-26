@@ -67,12 +67,14 @@ export function renderTask(task) {
         }
     });
 
-    // save input field on enter key
+    // save input field on enter or escape key
     wrapper.addEventListener('keydown', e => {
-        if (e.key !== 'Enter' || e.key!== 'Esc') return;
         const fieldEl = e.target;
+        const field = fieldEl.dataset.field;
+        if (!field) return;
+        if (e.key !== 'Enter' && e.key!== 'Escape') return;
         // ignore 'Enter' in textareas to allow for new lines
-        if (fieldEl.dataset.field === 'description') {
+        if (fieldEl.dataset.field === 'description' && e.key === 'Enter') {
             return;
         }
         e.preventDefault();
