@@ -1,5 +1,4 @@
 import { Task } from '@js/utilities/task.js'
-import { enterField } from '@js/utilities/enterField';
 import { saveTask } from '@js/utilities/saveTask';
 import { showTaskMenu } from '@js/components/taskMenu.js'
 import '@css/utilities/tasks.css'
@@ -37,33 +36,53 @@ export function renderTask(task) {
     descArea.value = task.description;
     descArea.dataset.field = 'description';
 
-    //task element sections
+    // task element sections
     const taskHeader = document.createElement('header');
     taskHeader.classList.add('task__header');
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task__info');
-    taskHeader.append(doneInput, titleInput);
-    taskInfo.append(descArea, dateInput, prioInput);
+    taskHeader.append(doneInput, titleInput, prioInput);
+    taskInfo.append(descArea, dateInput);
     wrapper.append(taskHeader, taskInfo);
 
-    //input field focused on
-    wrapper.addEventListener('focusin', e => {
-        let field = e.target.dataset.field;
-        if (!field) return;
-        enterField(field);
+    // set class for collapsing if footer is empty
+    const footerFields = [task.description, task.dueDate];
+    const isEmpty = footerFields.every(val => !val || val === '');
+    if (isEmpty) wrapper.classList.add("collapsed");
+    // expand when task focused on
+    wrapper.addEventListener('focusin', (e) => {
+        wrapper.classList.remove("collapsed");
     });
-
-    //save when input field exited
     wrapper.addEventListener('focusout', e => {
         let fieldEl = e.target;
         saveTask(fieldEl, task);
+        // if focus left the task
+        if (!wrapper.contains(e.relatedTarget)) {
+            const isFooterEmpty = !task.description && !task.dueDate;
+            // then collapse if empty
+            if (isFooterEmpty) {
+                wrapper.classList.add("collapsed");
+            }
+        }
+    });
+
+    // save input field on enter key
+    wrapper.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const fieldEl = e.target;
+        // ignore 'Enter' in textareas to allow for new lines
+        if (fieldEl.dataset.field === 'description') {
+            return;
+        }
+        e.preventDefault();
+        fieldEl.blur();
     });
     
-    //delete task on rightclick
+    // delete task on rightclick
     wrapper.addEventListener('contextmenu', e => {
-        //prevent regular rightclick menu
+        // prevent regular rightclick menu
         e.preventDefault();
-        //show new menu at mouse position
+        // show new menu at mouse position
         showTaskMenu(e.pageX, e.pageY, task);
     });
     return wrapper;

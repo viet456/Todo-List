@@ -21,7 +21,7 @@ export function saveTask(fieldEl, task) {
     console.log('saved', value, 'to', fieldEl.dataset.field)
     task[prop] = value;
 
-    //add new blank task if current blank task is titled and added
+    // add new blank task if current blank task is titled and added
     const tasks = task.project.tasks;
     const lastTask = tasks[tasks.length - 1];
     if (prop === 'title' && lastTask.title !=='') {
