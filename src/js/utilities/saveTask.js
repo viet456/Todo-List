@@ -24,7 +24,7 @@ export function saveTask(fieldEl, task) {
 
     // delete task only if empty title and contents
     if (prop === 'title' && value === '') {
-        const isTrulyEmpty = !task.description && !task.dueDate;
+        const isTrulyEmpty = !task.notes && !task.dueDate;
         if (isTrulyEmpty) {
             const tasks = task.project.tasks;
             const lastTask = tasks[tasks.length - 1];

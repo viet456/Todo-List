@@ -1,4 +1,4 @@
-import '@css/components/taskSection.css'
+import '@css/utilities/tasks.css'
 import { projectHeader } from '@js/components/projectHeader';
 import { getActiveProject } from '@js/utilities/projectService';
 

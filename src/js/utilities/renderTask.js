@@ -2,6 +2,7 @@ import { Task } from '@js/utilities/task.js'
 import { saveTask } from '@js/utilities/saveTask';
 import { showTaskMenu } from '@js/components/taskMenu.js'
 import '@css/utilities/tasks.css'
+import { resizeTextArea } from '@js/utilities/domUtils';
 
 export function renderTask(task) {
     const wrapper = document.createElement('div');
@@ -32,10 +33,12 @@ export function renderTask(task) {
     prioInput.checked = task.priority;
     prioInput.dataset.field = 'priority';
 
-    // Description: multi-line textarea
-    const descArea = document.createElement('textarea');
-    descArea.value = task.description;
-    descArea.dataset.field = 'description';
+    // notes: multi-line textarea
+    const notes = document.createElement('textarea');
+    notes.value = task.notes;
+    notes.placeholder = 'Notes';
+    notes.dataset.field = 'notes';
+    resizeTextArea(notes);
 
     // task element sections
     const taskHeader = document.createElement('header');
@@ -43,23 +46,25 @@ export function renderTask(task) {
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task__info');
     taskHeader.append(doneInput, titleInput, prioInput);
-    taskInfo.append(descArea, dateInput);
+    taskInfo.append(notes, dateInput);
     wrapper.append(taskHeader, taskInfo);
+    resizeTextArea(notes);
 
     // set class for collapsing if footer is empty
-    const footerFields = [task.description, task.dueDate];
+    const footerFields = [task.notes, task.dueDate];
     const isEmpty = footerFields.every(val => !val || val === '');
     if (isEmpty) wrapper.classList.add("collapsed");
     // expand when task focused on
     wrapper.addEventListener('focusin', (e) => {
         wrapper.classList.remove("collapsed");
+        resizeTextArea(not);
     });
     wrapper.addEventListener('focusout', e => {
         let fieldEl = e.target;
         saveTask(fieldEl, task);
         // if focus left the task
         if (!wrapper.contains(e.relatedTarget)) {
-            const isFooterEmpty = !task.description && !task.dueDate;
+            const isFooterEmpty = !task.notes && !task.dueDate;
             // then collapse if empty
             if (isFooterEmpty) {
                 wrapper.classList.add("collapsed");
@@ -74,7 +79,7 @@ export function renderTask(task) {
         if (!field) return;
         if (e.key !== 'Enter' && e.key!== 'Escape') return;
         // ignore 'Enter' in textareas to allow for new lines
-        if (fieldEl.dataset.field === 'description' && e.key === 'Enter') {
+        if (fieldEl.dataset.field === 'notes' && e.key === 'Enter') {
             return;
         }
         e.preventDefault();
