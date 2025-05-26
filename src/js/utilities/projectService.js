@@ -10,6 +10,7 @@ function notifyProjects() {
 
 export function setActiveProject(project) {
   activeProject = project;
+  window.dispatchEvent(new CustomEvent("activeProjectChanged"));
 }
 
 export function getActiveProject() {
@@ -45,8 +46,11 @@ export function updateProject(project, changes) {
 }
 
 //default project
-const defaultProject = new Project("today");
+const defaultProject = new Project("Today");
 projects.push(defaultProject);
 setActiveProject(defaultProject);
+const secondProject = new Project("Scheduled");
+projects.push(secondProject);
+
 defaultProject.addTask(new Task("Welcome!", "This is your first task.", null, false, false));
 defaultProject.addTask(new Task("Click me", "Right-click to delete me.", null, false, false));

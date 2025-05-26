@@ -12,7 +12,7 @@ export function main() {
     const app = document.getElementById('app');
     let focus = getActiveProject();
     app.innerHTML = ''; 
-    app.append(createSidebar(), createTaskSection(focus));
+    app.append(createSidebar(), createTaskSection());
     
     
 }

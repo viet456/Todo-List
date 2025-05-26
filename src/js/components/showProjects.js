@@ -8,11 +8,14 @@ export function showProjects() {
 
     function render() {
         wrapper.innerHTML = '';
+        let active = getActiveProject();
+
         getProjects().forEach(project => {
             let projectTile = document.createElement('div');
             projectTile.classList.add('project-tile');
             projectTile.textContent = project.name;
             projectTile.style.color = project.color;
+            if (project === active) projectTile.classList.add("active");
             //switch projects on click
             projectTile.addEventListener('click', () => {
                 setActiveProject(project);
@@ -21,6 +24,7 @@ export function showProjects() {
         });
     }
     window.addEventListener("projectsChanged", render);
+    window.addEventListener("activeProjectChanged", render);
     render();
     return wrapper;
 }
