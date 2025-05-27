@@ -1,0 +1,34 @@
+.popup {
+    position: fixed;
+    background: white;
+    top: 35%;
+    left: 30%;
+    z-index: 1000;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 40%;
+    height: 30%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: grid;
+    place-items: center;
+}
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.popup-actions button {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.popup-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
