@@ -8,7 +8,9 @@ export function saveTask(fieldEl, task) {
     if (!prop) return;
     //save field by type
     let value;
-    if (fieldEl.type === 'checkbox') {
+    if (prop === 'priority' && fieldEl.tagName === 'BUTTON') {
+        value = fieldEl.getAttribute('aria-pressed') === 'true'; 
+    } else if (fieldEl.type === 'checkbox') {
         value = fieldEl.checked;
     } else if (fieldEl.type === 'date') {
         //convert date to JS date and store if it exists

@@ -9,16 +9,23 @@ export function renderTask(task) {
     wrapper.className = 'task'
     wrapper.dataset.taskId = task.id;
 
+    const taskBody = document.createElement('div');
+    taskBody.className = 'task__body';
+
     // Done: toggle yes/no
     const doneInput = document.createElement('input');
     doneInput.type = 'checkbox';
     doneInput.checked = task.done;
     doneInput.dataset.field = 'done';
+    doneInput.addEventListener('change', () => {
+        saveTask(doneInput, task);
+    });
 
     // Title: single-line input
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.value = task.title; 
+    titleInput.placeholder = 'New task';
     titleInput.dataset.field = 'title';   
 
     // Due date: date picker
@@ -28,10 +35,30 @@ export function renderTask(task) {
     dateInput.dataset.field = 'dueDate';
 
     // Priority: toggle yes/no
-    const prioInput = document.createElement('input');
-    prioInput.type = 'checkbox';
-    prioInput.checked = task.priority;
-    prioInput.dataset.field = 'priority';
+    const priorityBtn = document.createElement('button');
+    priorityBtn.classList.add("priority-btn");
+    priorityBtn.dataset.field = 'priority';
+    priorityBtn.setAttribute("aria-pressed", task.priority ? 'true' : 'false');
+    priorityBtn.setAttribute("title", "Toggle priority");
+
+    const flagFilledSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <title>flag-variant</title>
+                        <path fill="currentColor" d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+                        </svg>`;
+    const flagOutlineSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <title>flag-variant-outline</title>
+                        <path fill="currentColor" d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3M7,7.25V11.5C7,11.5 9,10 11,10C13,10 14,12 16,12C18,12 18,11 18,11V7.5C18,7.5 17,8 16,8C14,8 13,6 11,6C9,6 7,7.25 7,7.25Z" />
+                        </svg>`;
+    priorityBtn.innerHTML = task.priority ? flagFilledSVG : flagOutlineSVG;
+
+    priorityBtn.addEventListener('click', (e) => {
+        const isPressed = priorityBtn.getAttribute('aria-pressed') === 'true';
+        const newPressedState = !isPressed;
+
+        priorityBtn.setAttribute('aria-pressed', newPressedState ? 'true' : 'false');
+        priorityBtn.innerHTML = newPressedState ? flagFilledSVG : flagOutlineSVG;
+        saveTask(priorityBtn, task);
+    });
 
     // notes: multi-line textarea
     const notes = document.createElement('textarea');
@@ -45,10 +72,11 @@ export function renderTask(task) {
     taskHeader.classList.add('task__header');
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task__info');
-    taskHeader.append(doneInput, titleInput, prioInput);
+    
+    taskHeader.append(doneInput, titleInput, priorityBtn);
     taskInfo.append(notes, dateInput);
-    wrapper.append(taskHeader, taskInfo);
-    resizeTextArea(notes);
+    taskBody.append(taskHeader, taskInfo);
+    wrapper.append(taskBody);
 
     // set class for collapsing if footer is empty
     const footerFields = [task.notes, task.dueDate];
@@ -56,12 +84,20 @@ export function renderTask(task) {
     if (isEmpty) wrapper.classList.add("collapsed");
     // expand when task focused on
     wrapper.addEventListener('focusin', (e) => {
-        wrapper.classList.remove("collapsed");
-        resizeTextArea(not);
+        const prop = e.target.dataset.field;
+        if (prop !== 'done' && prop !== 'priority') {
+            wrapper.classList.remove("collapsed");
+            resizeTextArea(notes); // Assuming 'notes' is a variable for your description textarea
+        }
     });
+    
+    // save field when focusout
     wrapper.addEventListener('focusout', e => {
         let fieldEl = e.target;
-        saveTask(fieldEl, task);
+        let prop = fieldEl.dataset.field;
+        if (prop !== 'done' && prop !== 'priority') {
+            saveTask(fieldEl, task);
+        }
         // if focus left the task
         if (!wrapper.contains(e.relatedTarget)) {
             const isFooterEmpty = !task.notes && !task.dueDate;
@@ -85,7 +121,7 @@ export function renderTask(task) {
         e.preventDefault();
         fieldEl.blur();
     });
-    
+
     // delete task on rightclick
     wrapper.addEventListener('contextmenu', e => {
         // prevent regular rightclick menu
