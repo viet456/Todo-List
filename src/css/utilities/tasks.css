@@ -4,7 +4,6 @@
     background-color: var(--color-bg-secondary);
     display: flex;
     flex-direction: column;
-    border-bottom: var(--border-primary);
 }
 
 .task__body {
@@ -14,14 +13,19 @@
 
 .task {
     box-sizing: border-box;
-    border-top: var(--border-primary);
+    border-bottom: var(--border-primary);
     gap: var(--space-sm);
     display: flex;
     flex-direction: column;
     padding: 0;
-    transition: max-height 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: max-height 0.1s ease-in-out, box-shadow 0.05s ease-in-out;
 }
-
+.task:hover {
+border-top: var(--border-width-sm) solid var(--color-text-dark);
+    border-bottom: var(--border-width-sm) solid var(--color-text-dark);
+    box-shadow: var(--shadow-menu);
+    transform: translateY(-1px);
+}
 .task input,
 .task textarea {
     border: none;

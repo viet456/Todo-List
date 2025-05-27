@@ -6,7 +6,7 @@
     font-size: var(--font-size-heading-lg); 
     font-weight: var(--font-weight-bold);
     padding: var(--space-lg) var(--space-xl);
-    border-bottom: var(--border-secondary);
+    border-bottom: var(--border-primary);
     display: flex;
     align-items: center;
     justify-content: flex-start;
