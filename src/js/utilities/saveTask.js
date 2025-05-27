@@ -39,15 +39,4 @@ export function saveTask(fieldEl, task) {
         }
         return;
     }
-
-    // add new blank task if current blank task is titled and added
-    const tasks = task.project.tasks;
-    const lastTask = tasks[tasks.length - 1];
-    if (prop === 'title' && lastTask.title !=='' && task === lastTask) {
-        const newBlankTask = task.project.addBlankTask();
-        if (newBlankTask) {
-            const newEl = renderTask(newBlankTask);
-            document.getElementById('taskList').append(newEl);
-        }
-    }
 }

@@ -72,7 +72,7 @@ export function renderTask(task) {
     taskHeader.classList.add('task__header');
     const taskInfo = document.createElement('div');
     taskInfo.classList.add('task__info');
-    
+
     taskHeader.append(doneInput, titleInput, priorityBtn);
     taskInfo.append(notes, dateInput);
     taskBody.append(taskHeader, taskInfo);
@@ -87,7 +87,7 @@ export function renderTask(task) {
         const prop = e.target.dataset.field;
         if (prop !== 'done' && prop !== 'priority') {
             wrapper.classList.remove("collapsed");
-            resizeTextArea(notes); // Assuming 'notes' is a variable for your description textarea
+            resizeTextArea(notes);
         }
     });
     
@@ -105,6 +105,7 @@ export function renderTask(task) {
             if (isFooterEmpty) {
                 wrapper.classList.add("collapsed");
             }
+            addNewTaskIfNeeded();
         }
     });
 
@@ -114,9 +115,16 @@ export function renderTask(task) {
         const field = fieldEl.dataset.field;
         if (!field) return;
         if (e.key !== 'Enter' && e.key!== 'Escape') return;
-        // ignore 'Enter' in textareas to allow for new lines
-        if (fieldEl.dataset.field === 'notes' && e.key === 'Enter') {
-            return;
+
+        if (e.key === 'Enter') {
+            // if Enter is pressed on the title, add a new task
+            if (field === 'title') {
+                addNewTaskIfNeeded();
+            }
+            // ignore Enter in textarea 'notes' to allow for new lines
+            if (field === 'notes') {
+                return;
+            }
         }
         e.preventDefault();
         fieldEl.blur();
@@ -129,5 +137,20 @@ export function renderTask(task) {
         // show new menu at mouse position
         showTaskMenu(e.pageX, e.pageY, task);
     });
+
+    function addNewTaskIfNeeded() {
+    const tasks = task.project.tasks;
+    const lastTask = tasks[tasks.length - 1];
+        // add a new task if the user is editing the lask task in the list and its title is not empty
+        if (task === lastTask && task.title.trim() !== '') {
+            const newBlankTask = task.project.addBlankTask();
+            if (newBlankTask) {
+                const newEl = renderTask(newBlankTask);
+                document.getElementById('taskList').append(newEl);
+                // focus onto new blank's title
+                newEl.querySelector('[data-field="title"]').focus();
+            }
+        }
+    }
     return wrapper;
 }
