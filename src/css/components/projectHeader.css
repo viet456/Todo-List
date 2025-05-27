@@ -1,13 +1,13 @@
 #projectHeader {
     grid-column: 2/3;
     grid-row: 1/2;
-    background-color: #f0f0f0; 
-    font-family: Arial, sans-serif;
-    font-size: 1.8rem; 
-    font-weight: bold;
-    padding: 1.5rem 2rem; 
-    border-bottom: 1px solid #ccc; 
-    display: flex; 
-    align-items: center; 
-    justify-content: flex-start; 
+    background-color: var(--color-bg-tertiary);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-heading-lg); 
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-lg) var(--space-xl);
+    border-bottom: var(--border-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }

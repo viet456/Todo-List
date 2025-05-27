@@ -1,14 +1,17 @@
 .context-menu {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  background: var(--color-bg-primary);
+  border: var(--border-secondary);
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-menu);
   z-index: 1000;
+  overflow: hidden;
 }
+
 .context-menu > div {
-  padding: 8px 12px;
+  padding: var(--space-xs) var(--space-sm);
   cursor: pointer;
 }
+
 .context-menu > div:hover {
-  background: #f0f0f0;
+  background: var(--color-bg-tertiary);
 }

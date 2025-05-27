@@ -1,19 +1,23 @@
 #projects-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0.5rem;
-  gap: 1rem;
+  padding: var(--space-xs);
+  gap: var(--space-md);
 }
+
 .project-tile {
-aspect-ratio: 1 / 0.5;
-  padding: 0.75rem;
+  aspect-ratio: 1 / 0.5;
+  padding: var(--space-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  background-color: white;
+  border-radius: var(--radius-small);
+  background-color: var(--color-bg-primary);
+  border: var(--border-secondary);
   cursor: pointer;
+  transition: border-color 0.2s ease;
 }
+
 .project-tile.active {
-    border: 2px solid black;
+    border: var(--border-active);
 }

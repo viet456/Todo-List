@@ -1,34 +1,36 @@
 .popup {
     position: fixed;
-    background: white;
+    background: var(--color-bg-primary);
     top: 35%;
     left: 30%;
     z-index: 1000;
-    padding: 1rem;
-    border-radius: 8px;
+    padding: var(--space-lg);
+    border-radius: var(--radius-large);
     width: 40%;
     height: 30%;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: var(--shadow-popup);
     display: grid;
     place-items: center;
 }
+
 .popup-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
 }
+
 .popup-actions button {
-    padding: 0.6rem 1.2rem;
-    border: 1px solid lightgray;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: var(--space-sm) var(--space-md);
+    border: var(--border-secondary);
+    border-radius: var(--radius-large);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.15s ease-in-out;
 }
 
 .popup-actions button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-menu);
 }

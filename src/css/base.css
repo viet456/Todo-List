@@ -1,17 +1,69 @@
+:root {
+  /* Colors */
+  --color-text-dark: #000000;
+  --color-text-light: #ffffff;
+  --color-text-muted: #6b7280;
+
+  --color-bg-primary: #ffffff; /* For popups, tiles */
+  --color-bg-secondary: #e1e2e6; /* Main task area background */
+  --color-bg-tertiary: #f0f0f0; /* For headers, inputs, and hovers */
+
+  --color-primary-dark: #354a60; /* Create Project button */
+  --color-primary-dark-hover: #4a6582;
+
+  --color-accent-active: #0079bf; /* Checkbox accent color */
+  --color-accent-priority: #f3b61d; /* Yellow priority color */
+  --color-accent-priority-bg: #fffbe6;
+
+  /* Typography */
+  --font-family-base: 'Inter', 'roboto', sans-serif;
+  --font-size-base: 1rem; /* For all body and standard text */
+  --font-size-heading-md: 1.2rem; /* A clear step up for task titles & buttons */
+  --font-size-heading-lg: 1.8rem; /* For main page headers */
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Sizing & Spacing */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 0.75rem;  /* 12px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+
+  /* Radii & Shadows */
+  --radius-small: 4px; /* For sharp, small elements */
+  --radius-large: 8px; /* For soft, large containers */
+  --shadow-menu: 0 2px 8px rgba(0,0,0,0.15);
+  --shadow-popup: 0 8px 24px rgba(0,0,0,0.2);
+
+  /* Borders */
+  --border-width-sm: 1px;
+  --border-width-md: 2px;
+  --border-width-lg: 5px;
+  --border-primary: var(--border-width-sm) solid #9ca3af;
+  --border-secondary: var(--border-width-sm) solid #ccc;
+  --border-active: var(--border-width-md) solid var(--color-accent-active);
+
+  /* Layout */
+  --layout-sidebar-width: 16rem;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 html, body {
-  font-family: 'Inter', 'roboto', sans-serif;
+  font-family: var(--font-family-base);
   padding: 0;
   margin: 0;
   height: 100vh;
 }
+
 #app {
   display: grid;
-  grid-template-columns: 15rem 1fr;
+  grid-template-columns: var(--layout-sidebar-width) 1fr;
   grid-template-rows: auto 1fr;
   height: 100%;
 }
