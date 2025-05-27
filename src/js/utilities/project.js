@@ -1,12 +1,13 @@
 import '@css/utilities/tasks.css'
 import { Task } from "@js/utilities/task";
-import { renderTask } from "./renderTask";
+import { renderTask } from "@js/utilities/renderTask";
+import { showContextMenu } from "@js/components/contextMenu";
 
 export class Project {
     constructor(name) {
         this.name = name;
         this.tasks = [];
-        this.color = 'black';
+        this.color = '#000000';
         this.archived = false;
         this.addBlankTask();
     }
@@ -48,7 +49,31 @@ export class Project {
     //create project tasks elements
     showProjectTasks() {
         const taskList = document.createElement('div');
-        taskList.id = 'taskList';
+        taskList.id = 'taskList';   
+
+        taskList.addEventListener('contextmenu', e => {
+            const taskEl = e.target.closest('.task');
+            if (!taskEl) return;
+            e.preventDefault();
+            const taskId = taskEl.dataset.taskId;
+            const task = this.tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            const menuItems = [];
+            const lastTask = this.tasks[this.tasks.length - 1];
+
+            if (task !== lastTask) {
+                menuItems.push({
+                    label: 'Delete Task',
+                    action: () => {
+                        this.deleteTask(task);
+                        taskEl.remove();
+                    }
+                });
+            }
+            showContextMenu(e.pageX, e.pageY, menuItems);
+        });
+
         this.tasks.forEach((task) => {
             let taskEl = renderTask(task);
             taskList.append(taskEl);

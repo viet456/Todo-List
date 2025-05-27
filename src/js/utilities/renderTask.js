@@ -1,6 +1,5 @@
 import { Task } from '@js/utilities/task.js'
 import { saveTask } from '@js/utilities/saveTask';
-import { showTaskMenu } from '@js/components/taskMenu.js'
 import '@css/utilities/tasks.css'
 import { resizeTextArea } from '@js/utilities/domUtils';
 
@@ -82,6 +81,7 @@ export function renderTask(task) {
     const footerFields = [task.notes, task.dueDate];
     const isEmpty = footerFields.every(val => !val || val === '');
     if (isEmpty) wrapper.classList.add("collapsed");
+
     // expand when task focused on
     wrapper.addEventListener('focusin', (e) => {
         const prop = e.target.dataset.field;
@@ -128,14 +128,6 @@ export function renderTask(task) {
         }
         e.preventDefault();
         fieldEl.blur();
-    });
-
-    // delete task on rightclick
-    wrapper.addEventListener('contextmenu', e => {
-        // prevent regular rightclick menu
-        e.preventDefault();
-        // show new menu at mouse position
-        showTaskMenu(e.pageX, e.pageY, task);
     });
 
     function addNewTaskIfNeeded() {
