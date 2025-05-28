@@ -1,6 +1,7 @@
 import { Task } from '@js/utilities/task.js'
 import { Project } from "@js/utilities/project";
 import { renderTask } from '@js/utilities/renderTask';
+import { notifyTasks } from '@js/utilities/projectService';
 
 export function saveTask(fieldEl, task) {
     let prop = fieldEl.dataset.field;
@@ -39,4 +40,5 @@ export function saveTask(fieldEl, task) {
         }
         return;
     }
+    notifyTasks();
 }

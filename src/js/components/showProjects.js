@@ -7,7 +7,7 @@ export function showProjects() {
     const wrapper = document.createElement('div');
     wrapper.id = 'projects-wrapper';
 
-    // event delegation listener
+    // event delegation listener for right-click on project tile
     wrapper.addEventListener('contextmenu', e => {
         const projectTile = e.target.closest('.project-tile');
         if (!projectTile) return;
@@ -28,7 +28,7 @@ export function showProjects() {
         });
 
         // prevent deleting the default projects
-        if (project.name !== "Today" && project.name !== "Scheduled") {
+        if (!project.isDefault) {
             menuItems.push({
                 label: `Delete "${project.name}"`,
                 action: () => {
@@ -45,7 +45,7 @@ export function showProjects() {
 
     function render() {
         wrapper.innerHTML = '';
-        let active = getActiveProject();
+        const active = getActiveProject();
 
         getProjects().forEach(project => {
             let projectTile = document.createElement('div');
@@ -53,8 +53,8 @@ export function showProjects() {
             projectTile.textContent = project.name;
             projectTile.dataset.projectName = project.name; 
             projectTile.style.color = project.color;
-            if (project === active) projectTile.classList.add("active");
-            
+            if (active && project.name === active.name) projectTile.classList.add("active");
+            // set project to active when its tile is clicked
             projectTile.addEventListener('click', () => {
                 setActiveProject(project);
             }); 

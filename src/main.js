@@ -4,7 +4,7 @@ import { createSidebar } from '@js/components/sidebar';
 import { Project } from '@js/utilities/project';
 import { addProject, getProjects, createProject } from '@js/utilities/projectService';
 import { Task } from '@js/utilities/task';
-import { getActiveProject } from './js/utilities/projectService';
+import { getActiveProject } from '@js/utilities/projectService';
 
 console.log(`we're live`);  
 
@@ -14,6 +14,11 @@ export function main() {
     app.innerHTML = ''; 
     app.append(createSidebar(), createTaskSection());
     
-    
+    window.addEventListener('tasksChanged', () => {
+        const currentProject = getActiveProject();
+        if (currentProject && currentProject.name === 'All') {
+            currentProject.render();
+        }
+    });
 }
 main();

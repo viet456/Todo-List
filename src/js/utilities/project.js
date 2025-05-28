@@ -2,13 +2,16 @@ import '@css/utilities/tasks.css'
 import { Task } from "@js/utilities/task";
 import { renderTask } from "@js/utilities/renderTask";
 import { showContextMenu } from "@js/components/contextMenu";
+import { notifyTasks, notifyProjects } from '@js/utilities/projectService';
 
 export class Project {
-    constructor(name) {
+    // default-task status set to false by default
+    constructor(name, isDefault = false) {
         this.name = name;
         this.tasks = [];
         this.color = '#000000';
         this.archived = false;
+        this.isDefault = isDefault;
         this.addBlankTask();
     }
 
@@ -34,6 +37,7 @@ export class Project {
             this.tasks.push(task);
             this.addBlankTask();
         }
+        notifyTasks();
     }
 
     deleteTask(taskToRemove) {
@@ -44,6 +48,7 @@ export class Project {
         if (!hasBlank) {
             this.addBlankTask();
         }
+        notifyTasks();
     }
 
     //create project tasks elements

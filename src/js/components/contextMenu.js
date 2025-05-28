@@ -22,7 +22,8 @@ export function showContextMenu(x, y, menuItems) {
     menu.style.left = x + 'px';
     menu.classList.add('context-menu');
 
-    // Create menu options from the provided array of actions
+    // Create menu options for elements, from actions provided 
+    // by their creator functions
     menuItems.forEach(item => {
         const option = document.createElement('div');
         option.textContent = item.label;
