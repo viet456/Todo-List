@@ -39,6 +39,7 @@ export function getProjects() {
     name: 'All',
     // save each project.tasks into tasks
     tasks: projects.flatMap(p => p.tasks),
+    id: 'system-all',
     isDefault: true,
     color: '#fffffff', 
     showProjectTasks: Project.prototype.showProjectTasks,
@@ -67,11 +68,14 @@ export function updateProject(project, changes) {
 }
 
 //default project
-const defaultProject = new Project("Today", true);
-projects.push(defaultProject);
-setActiveProject(defaultProject);
-const secondProject = new Project("Scheduled", true);
-projects.push(secondProject);
+const today = new Project("Today", true);
+projects.push(today);
+setActiveProject(today);
+const scheduled = new Project("Scheduled", true);
+projects.push(scheduled);
 
-defaultProject.addTask(new Task("Welcome!", "This is your first task.", null, false, false));
-defaultProject.addTask(new Task("Click me", "Right-click to delete me.", null, false, false));
+today.id = 'system-today';
+scheduled.id = 'system-scheduled'
+
+today.addTask(new Task("Welcome!", "This is your first task.", null, false, false));
+today.addTask(new Task("Click me", "Right-click to delete me.", null, false, false));

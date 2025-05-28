@@ -8,46 +8,21 @@ export class Project {
     // default-task status set to false by default
     constructor(name, isDefault = false) {
         this.name = name;
+        this.id = crypto.randomUUID();
         this.tasks = [];
         this.color = '#000000';
         this.archived = false;
         this.isDefault = isDefault;
-        this.addBlankTask();
     }
 
-    // one empty task at the end
-    addBlankTask() {
-        const blank = new Task('', '', '', false, false);
-        blank.project = this;
-        this.tasks.push(blank);
-        return blank;
-    }
-
-    //add a task at the end of the task list
     addTask(task) {
-        //task is linked to its project
         task.project = this;
-        //adds a blank task to insert before
-        const insertIndex = this.tasks.findIndex(t => t.title.trim() === '');
-        if (insertIndex !== -1) {
-            // insert the new task just before the blank
-            this.tasks.splice(insertIndex, 0, task);
-        } else {
-            // create blank after if not existing
-            this.tasks.push(task);
-            this.addBlankTask();
-        }
+        this.tasks.push(task);
         notifyTasks();
     }
 
     deleteTask(taskToRemove) {
-        // new tasks array without task to remove
         this.tasks = this.tasks.filter(t => t.id !== taskToRemove.id);
-        // ensure blank after task deletion
-        const hasBlank = this.tasks.some(t => t.title.trim() === '');
-        if (!hasBlank) {
-            this.addBlankTask();
-        }
         notifyTasks();
     }
 

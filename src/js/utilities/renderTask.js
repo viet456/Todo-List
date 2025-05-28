@@ -3,7 +3,7 @@ import { saveTask } from '@js/utilities/saveTask';
 import '@css/utilities/tasks.css'
 import { resizeTextArea } from '@js/utilities/domUtils';
 
-export function renderTask(task) {
+export function renderTask(task, project) {
     const wrapper = document.createElement('div');
     wrapper.className = 'task'
     wrapper.dataset.taskId = task.id;
@@ -16,9 +16,14 @@ export function renderTask(task) {
     doneInput.type = 'checkbox';
     doneInput.checked = task.done;
     doneInput.dataset.field = 'done';
-    doneInput.addEventListener('change', () => {
+    if (task.isCreator) {
+        // hide checkbox on creator task
+        doneInput.style.visibility = 'hidden';
+    } else {
+        doneInput.addEventListener('change', () => {
         saveTask(doneInput, task);
-    });
+        });
+    }
 
     // Title: single-line input
     const titleInput = document.createElement('input');
@@ -105,7 +110,6 @@ export function renderTask(task) {
             if (isFooterEmpty) {
                 wrapper.classList.add("collapsed");
             }
-            addNewTaskIfNeeded();
         }
     });
 
@@ -115,34 +119,9 @@ export function renderTask(task) {
         const field = fieldEl.dataset.field;
         if (!field) return;
         if (e.key !== 'Enter' && e.key!== 'Escape') return;
-
-        if (e.key === 'Enter') {
-            // if Enter is pressed on the title, add a new task
-            if (field === 'title') {
-                addNewTaskIfNeeded();
-            }
-            // ignore Enter in textarea 'notes' to allow for new lines
-            if (field === 'notes') {
-                return;
-            }
-        }
+        if (e.key === 'Enter' && field === 'notes') return;
         e.preventDefault();
         fieldEl.blur();
     });
-
-    function addNewTaskIfNeeded() {
-    const tasks = task.project.tasks;
-    const lastTask = tasks[tasks.length - 1];
-        // add a new task if the user is editing the lask task in the list and its title is not empty
-        if (task === lastTask && task.title.trim() !== '') {
-            const newBlankTask = task.project.addBlankTask();
-            if (newBlankTask) {
-                const newEl = renderTask(newBlankTask);
-                document.getElementById('taskList').append(newEl);
-                // focus onto new blank's title
-                newEl.querySelector('[data-field="title"]').focus();
-            }
-        }
-    }
     return wrapper;
 }

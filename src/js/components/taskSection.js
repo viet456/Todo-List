@@ -1,6 +1,8 @@
 import '@css/utilities/tasks.css'
 import { projectHeader } from '@js/components/projectHeader';
 import { getActiveProject } from '@js/utilities/projectService';
+import { createTaskCreator } from '@js/components/taskCreator';
+import { renderTask } from '@js/utilities/renderTask';
 
 export function createTaskSection() {
     const taskSection = document.createElement('div');
@@ -8,17 +10,22 @@ export function createTaskSection() {
 
     function render() {
         const project = getActiveProject();
+        if (!project) return;
+
         taskSection.innerHTML = '';
         taskSection.append(projectHeader(project));
+        
         const tasksList = project.showProjectTasks();
+        tasksList.id = 'taskList';
+
+        
         taskSection.append(tasksList);
+        taskSection.append(createTaskCreator(project));
     }
     
     render();
     //update task displayed to different active project
-    window.addEventListener("activeProjectChanged", () => {
-        let project = getActiveProject(); // update to the new project
-        render();
-    });
+    window.addEventListener("activeProjectChanged", render);
+    window.addEventListener("tasksChanged", render);
     return taskSection;
 }
