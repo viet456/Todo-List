@@ -1,25 +1,94 @@
-#projects-wrapper {
+/* --- View Control Buttons --- */
+.view-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  padding: 0 var(--space-xs);
+}
+
+.view-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
+  padding: var(--space-xs);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  height: 1.3em;
+  width: 1.4em;
+}
+
+.view-btn.active {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-dark);
+}
+
+#grid-view-btn {
+  border-radius: var(--radius-small) 0 0 var(--radius-small);
+}
+
+#list-view-btn {
+  border-left: none;
+  border-radius: 0 var(--radius-small) var(--radius-small) 0;
+}
+
+/* --- Container Layouts --- */
+#projects-container {
+    width: 100%;
+}
+
+#projects-container.view-grid {
+  padding: var(--space-md);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: var(--space-xs);
   gap: var(--space-md);
 }
 
-.project-tile {
-  aspect-ratio: 1 / 0.5;
-  padding: var(--space-sm);
+#projects-container.view-list {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-small);
-  background-color: var(--color-bg-primary);
+  flex-direction: column;
+  padding-top: var(--space-md);
+}
+
+/* --- Item Styles --- */
+.project-tile {
   border: var(--border-secondary);
+  background-color: var(--color-bg-primary);
+  transition: outline-color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease; 
   cursor: pointer;
-  transition: border-color 0.2s ease;
+}
+
+.project-tile:hover {
+  border-color: var(--color-accent-secondary);
+  box-shadow: var(--shadow-menu);
 }
 
 .project-tile.active {
-  outline: var(--border-width-md) solid var(--color-accent-active);
-  outline-offset: -2px;
-  border-color: transparent; 
+  border: var(--border-active);
+  box-shadow: var(--shadow-menu);
+}
+
+/* Specific styles for GRID view */
+#projects-container.view-grid .project-tile {
+  border-radius: var(--radius-large);
+  aspect-ratio: 1 / 0.7;
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Specific styles for LIST view */
+#projects-container.view-list .project-tile {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md);
+  width: 100%;
+  border-radius: 0;
 }

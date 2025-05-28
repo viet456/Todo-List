@@ -5,7 +5,9 @@ import '@css/components/projectTile.css';
 
 export function showProjects() {
     const wrapper = document.createElement('div');
-    wrapper.id = 'projects-wrapper';
+    wrapper.id = 'projects-container';
+
+    wrapper.classList.add('view-grid');
 
     // event delegation listener for right-click on project tile
     wrapper.addEventListener('contextmenu', e => {
@@ -46,7 +48,7 @@ export function showProjects() {
     function render() {
         wrapper.innerHTML = '';
         const active = getActiveProject();
-
+        
         getProjects().forEach(project => {
             let projectTile = document.createElement('div');
             projectTile.classList.add('project-tile');

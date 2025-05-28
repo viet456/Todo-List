@@ -21,7 +21,7 @@
     transition: max-height 0.1s ease-in-out, box-shadow 0.05s ease-in-out;
 }
 .task:hover {
-border-top: var(--border-width-sm) solid var(--color-text-dark);
+    border-top: var(--border-width-sm) solid var(--color-text-dark);
     border-bottom: var(--border-width-sm) solid var(--color-text-dark);
     box-shadow: var(--shadow-menu);
     transform: translateY(-1px);

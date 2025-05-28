@@ -12,6 +12,7 @@
   --color-primary-dark-hover: #4a6582;
 
   --color-accent-active: #0079bf; /* Checkbox accent color */
+  --color-accent-secondary: #9ca3af;
   --color-accent-priority: #f3b61d; /* Yellow priority color */
   --color-accent-priority-bg: #fffbe6;
 
@@ -39,13 +40,13 @@
   /* Borders */
   --border-width-sm: 1px;
   --border-width-md: 2px;
-  --border-width-lg: 5px;
+  --border-width-lg: 3px;
   --border-primary: var(--border-width-sm) solid #9ca3af;
-  --border-secondary: var(--border-width-sm) solid #ccc;
+  --border-secondary: var(--border-width-sm) solid #9ca3af;
   --border-active: var(--border-width-md) solid var(--color-accent-active);
 
   /* Layout */
-  --layout-sidebar-width: 16rem;
+  --layout-sidebar-width: 18rem;
 }
 
 *,

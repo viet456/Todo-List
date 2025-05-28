@@ -6,12 +6,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: var(--space-md) var(--space-md) var(--space-xl);
-    gap: var(--space-md);
+    padding: var(--space-md) 0 var(--space-xl);
 }
 
 #create-project-btn {
+    margin-top: auto;
     width: 80%;
     padding: var(--space-sm);
     font-size: var(--font-size-heading-md); /* Updated */
