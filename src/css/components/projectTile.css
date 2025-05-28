@@ -19,5 +19,7 @@
 }
 
 .project-tile.active {
-    border: var(--border-active);
+  outline: var(--border-width-md) solid var(--color-accent-active);
+  outline-offset: -2px;
+  border-color: transparent; 
 }
