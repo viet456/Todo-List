@@ -4,6 +4,14 @@ import { Task } from "@js/utilities/task";
 let activeProject = null;
 let projects = [];
 
+// helper function sends tasks created in "All" to Inbox
+export function fileTask(task, project = null) {
+  const dest = project && project.id !== 'system-all' 
+              ? project
+              : getInboxProject();
+  dest.addTask(task);
+}
+
 export function notifyTasks() {
   window.dispatchEvent(new CustomEvent("tasksChanged"));
 }
@@ -37,8 +45,10 @@ export function getProjects() {
   // create an "All" pseudo-project that shows all tasks
   const allProject = {
     name: 'All',
-    // save each project.tasks into tasks
-    tasks: projects.flatMap(p => p.tasks),
+  // getter runs when calling allProject.tasks
+    get tasks() {
+      return projects.flatMap(p => p.tasks);
+    },
     id: 'system-all',
     isDefault: true,
     color: '#fffffff', 
@@ -66,16 +76,22 @@ export function updateProject(project, changes) {
     notifyProjects();
     notifyTasks();
 }
-
-//default project
+export function getInboxProject() {
+    return projects.find(p => p.id === 'system-inbox');
+}
+//default projects
 const today = new Project("Today", true);
-projects.push(today);
-setActiveProject(today);
 const scheduled = new Project("Scheduled", true);
-projects.push(scheduled);
+const inbox = new Project("Inbox", true);
+setActiveProject(today);
 
+projects.push(today);
+projects.push(scheduled);
+projects.push(inbox);
 today.id = 'system-today';
-scheduled.id = 'system-scheduled'
+scheduled.id = 'system-scheduled';
+inbox.id = 'system-inbox';
+inbox.isHiddenInSidebar = true;
 
 today.addTask(new Task("Welcome!", "This is your first task.", null, false, false));
 today.addTask(new Task("Click me", "Right-click to delete me.", null, false, false));

@@ -11,15 +11,16 @@ export function createTaskSection() {
     function render() {
         const project = getActiveProject();
         if (!project) return;
-
         taskSection.innerHTML = '';
         taskSection.append(projectHeader(project));
         
-        const tasksList = project.showProjectTasks();
-        tasksList.id = 'taskList';
+        const tasksListDiv = document.createElement('div');        
+        tasksListDiv.id = 'taskList';
+        project.tasks.forEach(task => {
+            tasksListDiv.append(renderTask(task, project));
+        });
 
-        
-        taskSection.append(tasksList);
+        taskSection.append(tasksListDiv);
         taskSection.append(createTaskCreator(project));
     }
     

@@ -49,7 +49,9 @@ export function showProjects() {
         wrapper.innerHTML = '';
         const active = getActiveProject();
         
-        getProjects().forEach(project => {
+        getProjects()
+        .filter(project => !project.isHiddenInSidebar)
+        .forEach(project => {
             let projectTile = document.createElement('div');
             projectTile.classList.add('project-tile');
             projectTile.textContent = project.name;
