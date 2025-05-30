@@ -1,4 +1,4 @@
-import '@css/components/projectHeader.css'
+import './projectHeader.css'
 
 export function projectHeader(project) {
     const title = document.createElement('div');

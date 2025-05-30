@@ -1,10 +1,8 @@
-import '@css/base.css'
-import { createTaskSection } from '@js/components/taskSection';
-import { createSidebar } from '@js/components/sidebar';
-import { Project } from '@js/utilities/project';
-import { addProject, getProjects, createProject } from '@js/utilities/projectService';
-import { Task } from '@js/utilities/task';
-import { getActiveProject } from '@js/utilities/projectService';
+import 'src/shared/base.css'
+import { createSidebar } from 'src/features/projects/sidebar';
+import { Project, addProject, getProjects, createProject, getActiveProject } from 'src/features/projects';
+import { createTaskSection, Task } from 'src/features/tasks';
+
 
 console.log(`we're live`);  
 
@@ -13,12 +11,5 @@ export function main() {
     let focus = getActiveProject();
     app.innerHTML = ''; 
     app.append(createSidebar(), createTaskSection());
-    
-    window.addEventListener('tasksChanged', () => {
-        const currentProject = getActiveProject();
-        if (currentProject && currentProject.name === 'All') {
-            currentProject.render();
-        }
-    });
 }
 main();

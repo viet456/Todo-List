@@ -1,8 +1,7 @@
-import '@css/utilities/tasks.css'
-import { Task } from "@js/utilities/task";
-import { renderTask } from "@js/utilities/renderTask";
-import { showContextMenu } from "@js/components/contextMenu";
-import { notifyTasks, notifyProjects } from '@js/utilities/projectService';
+import 'src/features/tasks/tasks.css'
+import { Task, renderTask } from "src/features/tasks";
+import { showContextMenu } from "src/shared/contextMenu";
+import { notifyTasks, notifyProjects } from 'src/features/projects/projectService';
 
 export class Project {
     // default-task status set to false by default
@@ -63,9 +62,26 @@ export class Project {
 
     //render task list
     render() {
-        const oldList = document.getElementById('taskList');
-        const newList = this.showProjectTasks();
-        oldList.parentNode.replaceChild(newList, oldList);
+        const taskList = document.getElementById('taskList');
+        if (!taskList) return;
+
+        this.tasks.forEach((task) => {
+            const taskEl = taskList.querySelector(`[data-task-id="${task.id}"]`);
+
+            if (taskEl) {
+                const titleEl = taskEl.querySelector('input[data-field="title"]'); 
+                const notesEl = taskEl.querySelector('textarea[data-field="notes"]'); 
+                if (titleEl) {
+                    titleEl.value = task.title || ""; 
+                }
+                if (notesEl) {
+                    notesEl.value = task.notes || ""; 
+                }
+            } else {
+                const newTaskEl = renderTask(task);
+                taskList.append(newTaskEl);
+            }
+        });
     }
 }
 

@@ -1,6 +1,6 @@
-import { Task } from "@js/utilities/task";
-import { renderTask } from "@js/utilities/renderTask";
-import { getInboxProject, getActiveProject } from "@js/utilities/projectService";
+import { Task } from "src/features/tasks/task";
+import { renderTask } from "src/features/tasks/taskCard";
+import { getInboxProject, getActiveProject } from "src/features/projects";
 export function createTaskCreator(project) {
     const creatorTaskInstance = new Task('', '', null, null, false, true);
     const creatorEl = renderTask(creatorTaskInstance, project); 

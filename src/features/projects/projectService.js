@@ -1,15 +1,13 @@
-import { Project } from "@js/utilities/project";
-import { Task } from "@js/utilities/task";
+import { Project } from "src/features/projects/project";
+import { Task } from "src/features/tasks";
 
-let activeProject = null;
+let activeProject;
 let projects = [];
 
 // helper function sends tasks created in "All" to Inbox
 export function fileTask(task, project = null) {
-  const dest = project && project.id !== 'system-all' 
-              ? project
-              : getInboxProject();
-  dest.addTask(task);
+  const dest = (!project || project.id === 'system-all') ? getInboxProject() : project;
+    dest.addTask(task);
 }
 
 export function notifyTasks() {

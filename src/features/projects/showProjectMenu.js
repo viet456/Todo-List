@@ -1,7 +1,7 @@
-import { Project } from "@js/utilities/project";
-import { createProject } from "@js/utilities/projectService";
-import '@css/components/projectMenu.css'
-import { updateProject } from "../utilities/projectService";
+import { Project } from "src/features/projects/project";
+import { createProject } from "src/features/projects/projectService";
+import './projectMenu.css'
+import { updateProject } from "./projectService";
 
 // create a new project, edit if project is passed in
 export function showProjectMenu(projectToEdit = null) {

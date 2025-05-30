@@ -1,6 +1,6 @@
-import '@css/components/sidebar.css'
-import { showProjects } from '@js/components/showProjects';
-import { showProjectMenu } from '@js/components/showProjectMenu';
+import './sidebar.css'
+import { showProjects } from 'src/features/projects/showProjects';
+import { showProjectMenu } from 'src/features/projects/showProjectMenu';
 
 export function createSidebar() {
     const sidebar = document.createElement('div');

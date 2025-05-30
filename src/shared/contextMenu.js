@@ -1,7 +1,6 @@
-import { Project } from "@js/utilities/project";
-import '@css/utilities/tasks.css'
-import '@css/components/contextMenu.css'
-import '@css/components/contextMenu.css';
+import { Project } from "src/features/projects/project";
+import 'src/features/tasks/tasks.css'
+import './contextMenu.css'
 
 /**
  * Creates and shows a generic context menu at a specific position.

@@ -1,7 +1,7 @@
-import { getProjects, getActiveProject, setActiveProject, deleteProject } from "@js/utilities/projectService";
-import { showContextMenu } from "@js/components/contextMenu.js"; 
-import { showProjectMenu } from "@js/components/showProjectMenu";
-import '@css/components/projectTile.css';
+import { getProjects, getActiveProject, setActiveProject, deleteProject } from "src/features/projects/projectService";
+import { showContextMenu } from "src/shared/contextMenu.js"; 
+import { showProjectMenu } from "src/features/projects/showProjectMenu";
+import './projectTile.css';
 
 export function showProjects() {
     const wrapper = document.createElement('div');

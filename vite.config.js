@@ -1,21 +1,19 @@
-import { defineConfig } from 'vite'
-import path from 'path'
-import { fileURLToPath } from 'url'
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+import { defineConfig } from 'vite';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  // Use a full repo path when you deploy to GitHub Pages
+  base: '/Todo-List/',
+
   resolve: {
     alias: {
-      // @css → /src/css
-      '@css': path.resolve(__dirname, 'src/css'),
-      // @js  → /src/js
-      '@js':  path.resolve(__dirname, 'src/js'),
-    }
+      'src': '/src',
+    },
   },
-  // when deployed to https://<user>.github.io/Restaurant-Page/
-  base: './',
   build: {
     assetsDir: 'assets',
-  }
-})
+  },
+});
