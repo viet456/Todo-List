@@ -21,7 +21,7 @@ This project requires [Node.js](https://nodejs.org/) (v18 or newer) to be instal
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/viet456/Todo-List.git](https://github.com/viet456/Todo-List.git)
+    git clone https://github.com/viet456/Todo-List.git
     ```
     
 2.  **Navigate to the project directory:**
