@@ -8,4 +8,8 @@ export class Task {
         this.isCreator = isCreator;
         this.id = crypto.randomUUID();
     }
+    toJSON() {
+        const { project, ...plain } = this; 
+        return plain;                       
+    }
 }

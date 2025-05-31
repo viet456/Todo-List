@@ -1,6 +1,5 @@
 import { Task } from 'src/features/tasks/task.js'
 import { Project } from "src/features/projects";
-import { renderTask } from 'src/features/tasks/taskCard';
 
 export function saveTask(fieldEl, task) {
     let prop = fieldEl.dataset.field;
@@ -26,15 +25,25 @@ export function saveTask(fieldEl, task) {
     
     task[prop] = value;
 
+    // handle task deletion
     if (prop === 'title' && value === '') {
         const isTrulyEmpty = !task.notes && !task.dueDate;
         if (isTrulyEmpty) {
             if (task.project && typeof task.project.deleteTask === 'function' && task.project.tasks && task.project.tasks.includes(task)) {
                 task.project.deleteTask(task); // Modifies project's internal task list
-                return { changed: true, deleted: true }; // Task was deleted
+                if (task.project.id) { 
+                    localStorage.setItem(`project_${task.project.id}`, JSON.stringify(task.project));
+                }
+                return { changed: true, deleted: true };
             }
         }
     }
-    // if (dataActuallyChanged) console.log(`Task ${task.id} field ${prop} updated in memory to: ${value}`);
+    if (dataActuallyChanged) {
+        if (task.project && task.project.id) { 
+            console.log('Saving project:', task.project);
+            localStorage.setItem(`project_${task.project.id}`, JSON.stringify(task.project));
+            console.log(`Project ${task.project.id} saved to localStorage due to task update.`);
+        }
+    }
     return { changed: dataActuallyChanged, deleted: false };
 }

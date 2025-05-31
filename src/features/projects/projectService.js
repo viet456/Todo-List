@@ -3,6 +3,21 @@ import { Task } from "src/features/tasks";
 
 let activeProject;
 
+function rebuildTasks(plainTasks, projectInstance) {
+  if (!Array.isArray(plainTasks)) return [];
+  return plainTasks.map(data => {
+    const t = new Task(
+      data.title,
+      data.notes,
+      data.dueDate,
+      data.priority,
+    );
+    Object.assign(t, data);
+    t.project = projectInstance;
+    return t;
+  });
+}
+
 function getProjectsFromStorage() {
   let projectArray = []
 
@@ -10,10 +25,10 @@ function getProjectsFromStorage() {
     console.warn("localStorage is not available. Cannot load projects.");
     return projectArray; 
   }
-
+  
   for (let i = 0; i < localStorage.length; i++) {
     let key = localStorage.key(i);
-    if ((localStorage.key(i)).startsWith('project_')) {
+    if (key.startsWith('project_')) {
       let value = localStorage.getItem(key);
       if (value) {
         try {
@@ -21,6 +36,10 @@ function getProjectsFromStorage() {
           if (plainProjectData && typeof plainProjectData === 'object' && plainProjectData.id && plainProjectData.name) {
             const projectInstance = new Project(plainProjectData.name, plainProjectData.isDefault);
             Object.assign(projectInstance, plainProjectData); 
+            projectInstance.tasks = rebuildTasks(
+              plainProjectData.tasks ?? [],  
+              projectInstance               
+            );
             projectArray.push(projectInstance);
           } else {
             console.warn(`Data for key "${key}" was parsed but does not look like a valid project:`, plainProjectData);

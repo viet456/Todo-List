@@ -17,11 +17,13 @@ export class Project {
     addTask(task) {
         task.project = this;
         this.tasks.push(task);
+        localStorage.setItem(`project_${this.id}`, JSON.stringify(this));
         notifyTasks();
     }
 
     deleteTask(taskToRemove) {
         this.tasks = this.tasks.filter(t => t.id !== taskToRemove.id);
+        localStorage.setItem(`project_${this.id}`, JSON.stringify(this));
         notifyTasks();
     }
 
