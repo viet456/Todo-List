@@ -16,7 +16,8 @@ export function showProjects() {
         e.preventDefault();
 
         const projectName = projectTile.dataset.projectName;
-        const project = getProjects().find(p => p.name === projectName);
+        const projectId = projectTile.dataset.projectId;
+        const project = getProjects().find(p => p.id === projectId);
         if (!project) return;
 
         const menuItems = [];
@@ -35,7 +36,7 @@ export function showProjects() {
                 label: `Delete "${project.name}"`,
                 action: () => {
                     if (getActiveProject() === project) {
-                        const todayProject = getProjects().find(p => p.name === "Today");
+                        const todayProject = getProjects().find(p => p.id === "system-today");
                         if (todayProject) setActiveProject(todayProject);
                     }
                     deleteProject(project);
@@ -56,8 +57,9 @@ export function showProjects() {
             projectTile.classList.add('project-tile');
             projectTile.textContent = project.name;
             projectTile.dataset.projectName = project.name; 
+            projectTile.dataset.projectId = project.id;
             projectTile.style.color = project.color;
-            if (active && project.name === active.name) projectTile.classList.add("active");
+            if (active && project.id === active.id) projectTile.classList.add("active");
             // set project to active when its tile is clicked
             projectTile.addEventListener('click', () => {
                 setActiveProject(project);
