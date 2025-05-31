@@ -1,4 +1,4 @@
-import { Project } from "src/features/projects/project";
+import { Project } from "src/features/projects";
 import 'src/features/tasks/tasks.css'
 import './contextMenu.css'
 

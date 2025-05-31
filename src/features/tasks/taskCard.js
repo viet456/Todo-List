@@ -2,6 +2,8 @@ import { Task } from 'src/features/tasks/task.js';
 import { saveTask } from 'src/features/tasks/saveTask.js'; 
 import { resizeTextArea } from 'src/features/tasks/domUtils.js';
 import { notifyTasks, fileTask, getInboxProject } from 'src/features/projects';
+import { Project } from 'src/features/projects';
+import { showContextMenu } from 'src/shared/contextMenu';
 
 export function renderTask(task, projectContext) {
     const wrapper = document.createElement('div');
@@ -182,6 +184,17 @@ export function renderTask(task, projectContext) {
             e.preventDefault();
             fieldEl.blur();
         }
+    });
+    wrapper.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const menuItems = [{
+                    label: 'Delete',
+                    action: () => {
+                        task.project.deleteTask(task);
+                    }
+                }];
+        showContextMenu(e.pageX, e.pageY, menuItems);
     });
     return wrapper;
 }
